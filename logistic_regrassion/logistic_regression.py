@@ -1,3 +1,4 @@
+import math
 class Logistic_Regression(object):
 
     # constants
