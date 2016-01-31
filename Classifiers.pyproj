@@ -32,6 +32,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="training_data.csv" />
     <Content Include="Weather.csv" />
     <Content Include="WeatherTraining.csv" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 import Id3
 import Evaluation
+import math
 
 class Node:
 	value = ""
@@ -18,6 +19,38 @@ class Node:
 	def genChildren(self, dictionary):
 		if(isinstance(dictionary, dict)):
 			self.children = list(dictionary.keys())
+
+#This function seperates tha data in 90% training data(WeatherTraining.csv) and in 10% validation data(validation_data.csv). 
+def validation():
+    f=open('training_data.csv','r')
+    lines=f.readlines()
+    validationlines = math.modf(len(lines)*0.4)[1]
+    saved =lines
+    f1=open('validation_data.csv', 'w')
+    f2= open('for_test.csv', 'w')#this file does not contain the response attribute of each instance
+    list1=lines[(len(lines)-int(validationlines)):len(lines)]
+    i=0
+    for l1 in list1:
+        i=i+1
+        if i==len(list1):
+            f1.writelines(l1.rstrip('\n'))
+            f2.writelines(l1.rsplit(',', 1)[0]+',')
+        else:
+            f1.writelines(l1)
+            f2.writelines(l1.rsplit(',', 1)[0]+','+'\n')
+    f3=open('WeatherTraining.csv','w')
+    list2=saved[0:(len(lines)-int(validationlines))]
+    j=0
+    for l2 in list2:
+        j=j+1
+        if j==len(list2):
+            f3.writelines(l2.rstrip('\n'))
+        else:
+            f3.writelines(l2)
+    f1.close()
+    f2.close()
+    f3.close()
+    
 
 def train():
    file = open('WeatherTraining.csv')
@@ -49,7 +82,7 @@ def test():
    data = []
    tree=train()
    attributes = attributes_names()
-   f = open('Weather.csv')
+   f = open('for_test.csv')
    for line in f:
 	   line=line.strip("\r\n")
 	   data.append((line.split(',')))#to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
@@ -86,13 +119,18 @@ def test():
                 o.write(','+item)
                 i=i+1
             else:#last item(response)
-                o.write(','+item)
-            
+                o.write(','+item)   
         o.write('\n')
    o.close()
 
 
-if __name__ == '__main__':
-	test()
-	print (Evaluation.accuracy())
 
+
+#NA THUMITHW NA XWRISW TA VALIDATION ME TA TRAIN KATA 0.1
+if __name__ == '__main__':
+    validation()
+    test()
+    print (Evaluation.accuracy())
+    print (Evaluation.precision("yes"))
+    print (Evaluation.recall("yes"))
+    print (Evaluation.f_measure("yes"))
