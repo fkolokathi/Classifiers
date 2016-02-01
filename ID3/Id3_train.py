@@ -16,7 +16,7 @@ class Node:
         self.value = v
 
     def genChildren(self, dictionary):
-        if (isinstance(dictionary, dict)):
+        if isinstance(dictionary, dict):
             self.children = list(dictionary.keys())
 
 
@@ -28,10 +28,12 @@ def train():
         line = line.strip("\r\n")
         data.append(
             line.split(','))  # to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
-    attributes_names = data[
-        0]  # H prwth grammh tou file periexei ta onomata twn attributes.---------->Ta exw ektypwsei pairnei ta onomata twn attributes mia xara
+    attributes_names = data[0]
+    # H prwth grammh tou file periexei ta onomata twn attributes.
+    # ---------->Ta exw ektypwsei pairnei ta onomata twn attributes mia xara
     data.remove(
-        attributes_names)  # afairesh ths prwths grammhs pou periexei ta onomata twn attiributes mias kai den tha xreiastoun kata to training
+        attributes_names)
+    # afairesh ths prwths grammhs pou periexei ta onomata twn attiributes mias kai den tha xreiastoun kata to training
     # Run ID3
     tree = Id3.id3(data, attributes_names, goal)
     return tree
@@ -65,7 +67,7 @@ def test():
         count += 1
         dictionary = tree.copy()
         result = ""
-        while (isinstance(dictionary, dict)):
+        while isinstance(dictionary, dict):
             root = Node(list(dictionary.keys())[0], dictionary[list(dictionary.keys())[0]])
             dictionary = dictionary[list(dictionary.keys())[0]]
             index = attributes.index(root.value)
@@ -80,7 +82,8 @@ def test():
                 break
         # print ("entry%s = %s" % (count, result))
         lis = entry
-        lis.pop()  # the last element of list entry is " " because of the last comma that every tuple has (sunny,cool,high,TRUE,) in weather.csv file
+        lis.pop()  # the last element of list entry is " " because of the last comma that every tuple
+        # has (sunny,cool,high,TRUE,) in weather.csv file
         lis.append(result)
         length = len(lis) - 1
         i = 0
