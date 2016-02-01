@@ -1,7 +1,7 @@
 import math
 
-import Evaluation
-import Id3_train
+import ID3.Evaluation as Evaluation
+import ID3.Id3_train as Id3_train
 
 
 # This function seperates tha data in 90% training data(WeatherTraining.csv) and in 10% validation data(validation_data.csv).
