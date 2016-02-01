@@ -10,7 +10,7 @@ def training_results():
 
     lg = Logistic_Regression()
 
-    data_file = ''
+    data_file = 'deramtology.csv'
     dataset = Loader.load_dataset(filename=data_file)
 
     training_data = dataset[:math.floor(train*len(dataset)) ]
