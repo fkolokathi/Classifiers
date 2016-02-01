@@ -63,3 +63,4 @@ class Logistic_Regression(object):
 
     def negative(self, x):
         return math.exp(-1.0*x)/(1.0+math.exp(-1.0*x))
+
