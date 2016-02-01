@@ -2,7 +2,8 @@ import math
 
 
 # This function finds the most common value for the goal attribute.
-# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target attribute
+# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the
+# target attribute
 def goal_majority(data, attributes, goal):
     dictionary = {}
     pos = attributes.index(goal)
@@ -34,7 +35,8 @@ def get_attribute_values(data, attributes, attribute):
 
 
 # This function calculates the entropy.
-# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target attribute
+# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target
+# attribute
 def entropy(data, attributes, goal):
     dictionary = {}
     pos = attributes.index(goal)
@@ -51,7 +53,8 @@ def entropy(data, attributes, goal):
 
 
 # This function calculates the information gain for a given attribute.
-# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target attribute,
+# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target
+# attribute,
 # attribute is the given attribute for which IG is calculated
 def information_gain(data, attributes, goal, attribute):
     dictionary = {}
@@ -76,7 +79,8 @@ def information_gain(data, attributes, goal, attribute):
 
 
 # This functions return the attribute with the maximum information gain
-# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target attribute
+# data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target
+# attribute
 def best_attribute(data, attributes, goal):
     best = attributes[0]
     max = 0
@@ -88,17 +92,19 @@ def best_attribute(data, attributes, goal):
     return best
 
 
-# This function returns a list which contains sublists each of which contains the turple in which best=value.Each sublist also does not contain the best attribute
-# data is a list with sublists each of which contains a turple,attributes is a list,best is the given attribute with max information gain,value is a value of best attribute
+# This function returns a list which contains sublists each of which contains the turple in which best=value.
+# Each sublist also does not contain the best attribute
+# data is a list with sublists each of which contains a turple,attributes is a list,best is the given attribute with
+# max information gain,value is a value of best attribute
 def get_node_examples(data, attributes, best, value):
     list = []
     pos = attributes.index(best)
     for turple in data:
-        if (turple[pos] == value):
+        if turple[pos] == value:
             newlist = []
             # add value if it is not in best column
             for i in range(0, len(turple)):
-                if (i != pos):
+                if i != pos:
                     newlist.append(turple[i])
             list.append(newlist)
     return list

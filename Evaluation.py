@@ -2,18 +2,18 @@
 def accuracy():
     correct_responses = 0
     total = 0
-    file1 = open('test_result.txt')
+    file1 = open('test_result.csv')
     lines1 = file1.readlines()
     file2 = open('validation_data.csv')
     lines2 = file2.readlines()
     length = len(lines2)
     i = 0
-    while (i < length):
+    while i < length:
         if lines1[i].rstrip('\n') == lines2[i].rstrip('\n'):
             correct_responses += 1
         i += 1
         total += 1
-    if (total) == 0:
+    if total == 0:
         raise ValueError("Empty testset!")
     return correct_responses / float(total)
 
@@ -24,7 +24,7 @@ def metric_parameters(response):
     truepos_inst = 0
     falsepos_inst = 0
     falseneg_inst = 0
-    file1 = open('test_result.txt')
+    file1 = open('test_result.csv')
     lines1 = file1.readlines()
     file2 = open('validation_data.csv')
     lines2 = file2.readlines()
@@ -71,7 +71,7 @@ def precision(response):
 # recall=tp/(tp+fn)
 def recall(response):
     list = metric_parameters(response)
-    if (list[0] + list[2]) == 0:
+    if list[0] + list[2] == 0:
         raise ValueError("You cannot calculate recall because of its zero denominator!")
     return list[0] / (list[0] + list[2])
 
@@ -80,6 +80,6 @@ def recall(response):
 def f_measure(response):
     pr = precision(response)
     rec = recall(response)
-    if (pr + rec) == 0:
+    if pr + rec == 0:
         raise ValueError("You cannot calculate f-measure because of its zero denominator!")
     return (2 * pr * rec) / (pr + rec)
