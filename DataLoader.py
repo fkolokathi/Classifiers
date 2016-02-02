@@ -19,7 +19,7 @@ def load_dataset(filename):
                 attr = float(a)
             except ValueError:
                 try:
-                    attr = int(a)  # euxomai na ka
+                    attr = int(a)  # euxomai na kanei
                 except ValueError:
                     attr = a
             data.append(attr)
@@ -27,13 +27,13 @@ def load_dataset(filename):
     return dataset
 
 
-def get_feature_values(data):
-    feature = [[]] * len(data[0])  # isws to teleutaio na einai to response...apla to agnoneis
+def transpose(data):
+    dataT = [[]] * len(data[0])
     for d in data:
         for i in range(len(d)):
-            if d[i] not in feature[i]:
-                feature[i].append(d[i])
-    return feature
+            if d[i] not in dataT[i]:
+                dataT[i].append(d[i])
+    return dataT
 
 
 '''

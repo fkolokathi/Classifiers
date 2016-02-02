@@ -4,7 +4,8 @@ import ID3.Evaluation as Evaluation
 import ID3.Id3_train as Id3_train
 
 
-# This function seperates tha data in 90% training data(WeatherTraining.csv) and in 10% validation data(validation_data.csv).
+# This function separates tha data in 90% training data(WeatherTraining.csv) and in 10%
+#  validation data(validation_data.csv).
 def validation():
     f = open('dermatology.csv', 'r')
     lines = f.readlines()

@@ -8,7 +8,7 @@ def accuracy():
     lines2 = file2.readlines()
     length = len(lines2)
     i = 0
-    while (i < length):
+    while i < length:
         if lines1[i].rstrip('\n') == lines2[i].rstrip('\n'):
             correct_responses += 1
         i += 1
@@ -18,8 +18,10 @@ def accuracy():
     return correct_responses / float(total)
 
 
-# This function calculates the values of tp(true positive),fp(false positive) and fn(false negative) for a particular response.This response
-# represents the positive value.Depending on truepos_inst,falsepos_inst and falseneg_inst values of each test instance,we increase the values of tp,fp,fn
+# This function calculates the values of tp(true positive),fp(false positive) and fn(false negative) for a particular
+# response.
+# This response represents the positive value.Depending on truepos_inst,falsepos_inst and falseneg_inst values
+# of each test instance,we increase the values of tp,fp,fn
 def metric_parameters(response):
     truepos_inst = 0
     falsepos_inst = 0
