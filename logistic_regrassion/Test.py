@@ -16,7 +16,7 @@ def training_results():
 
     data_file = 'dermatology.csv'
     dataset = load_dataset(filename=data_file)
-
+    dataset = dataset[1:]
     # splitting the data
     training_data = dataset[:math.floor(train * len(dataset))]
     validation_data = dataset[math.floor(train * len(dataset)): math.floor(train * len(dataset)) + math.floor(validate * len(dataset))]
