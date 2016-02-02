@@ -1,6 +1,6 @@
 import math
 
-from logistic_regrassion.Loader import Loader
+from DataLoader import *
 from logistic_regrassion.logistic_regression import LogisticRegression
 
 
@@ -12,7 +12,7 @@ def training_results():
     lg = LogisticRegression()
 
     data_file = 'dermatology.csv'
-    dataset = Loader.load_dataset(filename=data_file)
+    dataset = load_dataset(filename=data_file)
     print(dataset)
     training_data = dataset[:math.floor(train * len(dataset))]
 
@@ -80,8 +80,9 @@ def get_results(cr, r):
                 tn += 1
             else:
                 fp += 1
-
-    return [[tp, fp], [tn, fn]]
+    returned = [[tp, fp], [tn, fn]]
+    print(returned)
+    return returned
 
 
 '''

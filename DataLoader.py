@@ -16,10 +16,10 @@ def load_dataset(filename):
         for a in attributes:
             a.strip()
             try:
-                attr = float(a)
+                attr = int(a)
             except ValueError:
                 try:
-                    attr = int(a)  # euxomai na kanei
+                    attr = float(a)  # euxomai na kanei
                 except ValueError:
                     attr = a
             data.append(attr)
