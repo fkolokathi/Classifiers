@@ -1,3 +1,7 @@
+# Dimaki Georgia 3130052
+# Kolokathi Fotini 3090088
+# Papatheodorou Dimitris 3130162
+#########################################################
 import math
 
 

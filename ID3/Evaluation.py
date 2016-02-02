@@ -1,3 +1,7 @@
+# Dimaki Georgia 3130052
+# Kolokathi Fotini 3090088
+# Papatheodorou Dimitris 3130162
+#########################################################
 # accuracy=(#correct_responses)/(#test_tuples) or (tp + tn)/(tp + tn + fp + fn)
 def accuracy():
     correct_responses = 0

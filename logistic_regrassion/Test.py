@@ -1,22 +1,45 @@
+# Dimaki Georgia 3130052
+# Kolokathi Fotini 3090088
+# Papatheodorou Dimitris 3130162
+#########################################################
+
 import math
 
 from DataLoader import *
 from logistic_regrassion.logistic_regression import LogisticRegression
+from IG import  *
 
 '''
 a function used only to compute the metrics of the performance of logistic regression algorithm
 '''
 def training_results():
+
+    best_attrs = ff()
     # witch percentage of data will take each set of data used for training, validation and testing of the algorithm
     train = 0.4
     validate = 0.3
     test = 0.3
+    k_best = math.floor(0.7*len(best_attrs))
 
     lg = LogisticRegression()
 
     data_file = 'dermatology.csv'
-    dataset = load_dataset(filename=data_file)
-    dataset = dataset[1:]
+    dtst = load_dataset(filename=data_file)
+
+    dataset = [[]]*(len(dtst)-1)
+    print(dtst)
+
+    the_best = best_attrs[: k_best]
+    print(the_best)
+
+    for j in range(1,len(dtst)):
+        for i in range(len(dtst[0])):
+            if dtst[0][i] in the_best:
+                dataset[j-1].append(dtst[j][i])
+
+    #print(dataset)
+
+    # dataset = dataset[1:]
     # splitting the data
     training_data = dataset[:math.floor(train * len(dataset))]
     validation_data = dataset[math.floor(train * len(dataset)): math.floor(train * len(dataset)) + math.floor(validate * len(dataset))]
@@ -28,7 +51,7 @@ def training_results():
         z.append(d[-1])
 
     # computing the best k using the performance of the algorithm with each value of k
-    k = [0, 1, 3, 5, 7, 10]
+    k = [0, 1, 3]
     max_ac = 0
     best = 0
     for i in range(len(k)):
@@ -37,6 +60,7 @@ def training_results():
         if metrics[0] > max_ac:
             max_ac = metrics[0]
             best = i
+    print ("here")
 
     lg.train(dataset=training_data, k=k[best])
 

@@ -1,7 +1,13 @@
+# Dimaki Georgia 3130052
+# Kolokathi Fotini 3090088
+# Papatheodorou Dimitris 3130162
+#########################################################
+
 # This function calculates the information gain for a given attribute.
 # data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the
 # target attribute,
 # attribute is the given attribute for which IG is calculated
+import math
 def information_gain(data, attributes, goal, attribute):
     dictionary = {}
     pos = attributes.index(attribute)
@@ -44,6 +50,8 @@ def entropy(data,attributes,goal):
 # data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target
 # attribute
 def best_attribute(data, attributes, goal):
+    if attributes == []:
+        return ''
     best = attributes[0]
     max = 0
     for attr in attributes:
@@ -60,8 +68,8 @@ def attributes_names():
    goal = "Class"#name of goal
    data=[]
    for line in file:
-	   line = line.strip("\r\n")
-	   data.append(line.split(','))#to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
+        line = line.strip("\r\n")
+        data.append(line.split(','))#to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
    attributes_names = data[0]
    return attributes_names
 
@@ -69,6 +77,8 @@ def attributes_names():
 #data is a list with sublists each of which contain a turple,attributes is a list,attribute is given attribute
 def get_attribute_values(data,attributes,attribute):
     values=[]
+    if attribute == '':
+        return  values
     pos=attributes.index(attribute)
     for turple in data:
         if turple[pos] not in values:
@@ -110,8 +120,8 @@ def ff():
     for line in file:
         line = line.strip("\r\n")
         data.append(line.split(','))#to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
-    attributes_names = data[0]#H prwth grammh tou file periexei ta onomata twn attributes.
-    data.remove(attributes_names)#afairesh ths prwths grammhs pou periexei ta onomata twn attiributes mias kai den tha xreiastoun kata to training
+    attr_names = data[0]#H prwth grammh tou file periexei ta onomata twn attributes.
+    data.remove(attr_names)#afairesh ths prwths grammhs pou periexei ta onomata twn attiributes mias kai den tha xreiastoun kata to training
     list=[]
     li=df(attributes,goal,data,list)
     return li

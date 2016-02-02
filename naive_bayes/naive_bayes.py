@@ -1,3 +1,7 @@
+# Dimaki Georgia 3130052
+# Kolokathi Fotini 3090088
+# Papatheodorou Dimitris 3130162
+#########################################################
 '''
     gia ka8e pi8ani apokrisi (i opoia vrisketai sto telos ka8e dianismatos dedomenwn) exw kai enan pinaka apo counters
     dld to counters einai ena dictionary to opoio lamvanei mia apokrisi kai se autin antistoixei enan pinaka
