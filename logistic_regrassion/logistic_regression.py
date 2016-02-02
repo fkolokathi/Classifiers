@@ -1,9 +1,15 @@
 import math
 
 
-class LogisticRegression(object):
-    def _init_(self):
+class LogisticRegression:
+
+    '''
+    n ---> the constant used for the stochastic gradient descent
+    w ---> the weights calculated during training
+    '''
+    def __init__(self):
         self.n = 0.01
+        self.w = [0] # pointless assignment
 
     '''
     with w, x be vectors it computes w*x.
@@ -11,24 +17,26 @@ class LogisticRegression(object):
     x[0]*w[1] + x[1]*w[2] +...+ x[-2]*w[-1]
     ---> w[0] is always multiplied by 1
     ---> x[-1] is the response and therefore is not used for the calculations
+    (however it can work both on data that contain the correct response and with those that don't)
     '''
 
     def product(self, w, x):
         prod = w[0]
-        for i in range(len(x)):
-            prod += x[i] * w[i + 1]
+        for i in range(1,len(w)):
+            prod += x[i-1] * w[i]
 
         return prod
 
+    '''
+    trains the logistic regression on specific dataset with specific penalty constant k for the weights
+    '''
     def train(self, dataset, k=0.1):
         num_of_features = len(dataset[0])
-        w = [1 / num_of_features] * (num_of_features + 1)
-
-        l = 1000000000000000000
+        w = [1 / num_of_features] * (num_of_features)
+        l = 100
         s = 0
 
-
-        while l - s < 0:
+        while abs(l - s) > 0.05:
             l = s
             self.w = w
             s = 0
@@ -41,25 +49,36 @@ class LogisticRegression(object):
 
                 w[0] += self.n * (x[-1] - self.positive(self.product(self.w, x)) - 2 * k * w[0])
                 for i in range(1, len(w)):
-                    w[i] += self.n * (x[i] * (x[-1] - self.positive(self.product(self.w, x))) - 2 * k * w[i])
+                    w[i] += self.n * (x[i-1] * (x[-1] - self.positive(self.product(self.w, x))) - 2 * k * w[i])
 
-                    # Prosoxi!!! eite to dianisma x  periexei eite oxi to pedio ts swstis apokrisis to product(w,x) to agnoei
 
+    '''
+    classifies the data x
+    '''
     def response(self, x):
-        if self.positive(self.product(self.w, x)) >= 0.5:  # kata simvasi to 0.5 to 8ewrw entos twn oriwn
-            return 1
+        if self.positive(self.product(self.w, x)) >= 0.5:
+            result = 1
         else:
-            return 0
+            result = 0
+        return result
 
+    '''
+    classifies all data in the 'data' array
+    '''
     def response_all(self, data):
         responses = []
         for d in data:
             responses.append(self.response(d))
-
         return responses
 
+    '''
+    it computes the probability that the category of x is the positive category (1)
+    '''
     def positive(self, x):
         return 1.0 / (1.0 + math.exp(-1.0 * x))
 
+    '''
+    it computes the probability that the category of x is the negative category (0)
+    '''
     def negative(self, x):
         return math.exp(-1.0 * x) / (1.0 + math.exp(-1.0 * x))
