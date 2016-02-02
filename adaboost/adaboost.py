@@ -4,9 +4,8 @@ from copy import deepcopy
 import DataLoader
 
 
-def train(dataset, file, iterNum):
-    data = DataLoader.load_dataset(file)
-    adaboost(data, decision_stump, iterNum)
+def train(dataset, iterNum):
+    adaboost(dataset, decision_stump, iterNum)
 
 
 def decision_stump(dataset, weights):
@@ -92,7 +91,3 @@ def weighted_majority(hypos, weights):
             max = hypos[i]
     return max, i - 1
 
-
-if __name__ == '__main__':
-    pass
-    # TODO test, validation, metrics
