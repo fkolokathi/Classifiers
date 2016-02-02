@@ -14,7 +14,7 @@ def training_results():
     data_file = 'dermatology.csv'
     dataset = Loader.load_dataset(filename=data_file)
     print(dataset)
-    training_data = dataset[:math.floor(train * len(dataset)) ]
+    training_data = dataset[:math.floor(train * len(dataset))]
 
     validating_data = dataset[math.floor(train * len(dataset)): math.floor(validate * len(dataset))]
 
@@ -34,23 +34,21 @@ def training_results():
             max_ac = metrics[0]
             best = i
 
-
-    lg.train(dataset=training_data, k = k[best])
+    lg.train(dataset=training_data, k=k[best])
 
     y = []
     for d in test_data:
         y.append(d[-1])
 
-    lg.train(dataset=training_data)
     x = []
     for d in training_data:
         x.append(d[-1])
 
-    measures_for_train  = get_metrics(get_results(lg.response_all(training_data), x))
+    measures_for_train = get_metrics(get_results(lg.response_all(training_data), x))
     measures_for_test = get_metrics(get_results(lg.response_all(test_data), y))
 
-    print("*******Training data*******"+str_metrics(measures_for_train))
-    print("*******Test data*******"+str_metrics(measures_for_test))
+    print("*******Training data*******" + str_metrics(measures_for_train))
+    print("*******Test data*******" + str_metrics(measures_for_test))
 
 
 '''
@@ -60,14 +58,12 @@ return an array of the form
 +----+----+
 | tn | fn |
 +---------+
-
 cr ----> correct response
 r  ----> response
 '''
 
 
 def get_results(cr, r):
-
     tp = 0
     fp = 0
     tn = 0
@@ -87,30 +83,34 @@ def get_results(cr, r):
 
     return [[tp, fp], [tn, fn]]
 
+
 '''
 returns a list of the form [accuracy, precision, recall, f-measure]
 '''
 
-def get_metrics(results):
 
+def get_metrics(results):
     tp = results[0][0]
     tn = results[1][0]
     fp = results[0][1]
     fn = results[1][1]
 
+    metrics = []
     # accuracy
-    metrics[0] = (tp + tn)/(tp + tn + fp + fn)
+    metrics[0] = (tp + tn) / (tp + tn + fp + fn)
     # precision
-    metrics[1] = tp/(tp+fp)
+    metrics[1] = tp / (tp + fp)
     # recall
-    metrics[2] = tp/(tp+fn)
+    metrics[2] = tp / (tp + fn)
     # f-measure
-    metrics[3] = (2*mertics[1]*metrics[2])/(metrics[1]+metrics[2])
+    metrics[3] = (2 * metrics[1] * metrics[2]) / (metrics[1] + metrics[2])
 
     return metrics
 
+
 def str_metrics(metrics):
-    return 'accuracy: '+metrics[0]+'\nprecision: '+metrics[1]+'\nrecall: '+metrics[2]+'\nf-measure: '+metrics[3]
+    return 'accuracy: ' + metrics[0] + '\nprecision: ' + metrics[1] + '\nrecall: ' + metrics[2] + '\nf-measure: ' + \
+           metrics[3]
 
 
 if __name__ == "__main__":
