@@ -24,7 +24,9 @@ class LogisticRegression(object):
         num_of_features = len(dataset[0])
         w = [1 / num_of_features] * (num_of_features + 1)
 
-        l = 0
+        l = 1000000000000000000
+        s = 0
+
 
         while l - s < 0:
             l = s
