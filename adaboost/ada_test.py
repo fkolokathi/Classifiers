@@ -22,11 +22,10 @@ def training_results():
             responses.append(r[-1])
         return responses
 
-    train_metrics = get_metrics(get_results(get_responses(trained), get_responses(training_data)))
-    test_metrics = get_metrics(get_results(get_responses(trained), get_responses(training_data)))
+        #
 
-    print("*******Training data*******" + str_metrics(train_metrics))
-    print("*******Test data*******" + str_metrics(test_metrics))
+        # print("*******Training data*******" + str_metrics(train_metrics))
+        # print("*******Test data*******" + str_metrics(test_metrics))
 
 
 '''
