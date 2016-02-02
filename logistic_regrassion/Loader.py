@@ -9,6 +9,7 @@ class Loader:
     def load_dataset(filename):
         f = open(filename, 'r')
         lines = f.readlines()
+        print(lines)
         f.close()
 
         # 8ewrw oti pairnw csv arxeia sta opoia ka8e paradeigma vrisketai se diaforetiki grammi
@@ -23,19 +24,21 @@ class Loader:
             attributes = line.split(sep = ',')
             data = []
             for a in attributes:
-                a.strip()
+                a.strip(' \n\t')
 
                 try:
-                    attr = float(a)
+                    attr = int(a)
                 except ValueError:
                     try:
-                        attr = int(a) # euxomai na ka
+                        attr = float(a) # euxomai na ka
                     except ValueError:
                         attr = a
 
                 data.append(attr)
 
             dataset.append(data)
+
+        return dataset
 
 
     @staticmethod
