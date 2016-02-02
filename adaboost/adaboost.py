@@ -1,5 +1,12 @@
 import math
 
+import Loader
+
+
+def train(dataset, file):
+    data = Loader.load_dataset(file)
+
+
 
 def adaboost(dataset, L, M):
     # dataset: tuples of xi training examples with the proper yi response
@@ -7,7 +14,7 @@ def adaboost(dataset, L, M):
     # M: number of iterations
     w = []  # vector of the weights of examples
     N = len(dataset.get_examples)
-    w = [1. / N] * N  # initiliaze all the weights as 1/N
+    w = [1. / N] * N  # initilize all the weights as 1/N
     h = []  # vector to insert M hypotheses we learn
     z = []  # vector to insert the weights of the M hypotheses
 
@@ -22,7 +29,7 @@ def adaboost(dataset, L, M):
                 error += w[j]
         for j in range(N):
             # for error < 0.5, the weight of the correctly classified examples decreases
-            if h[m].predict(dataset[j]) == dataset[j][1]:
+            if h[m].predict(dataset[j]) == dataset[j]:
                 if error == 1:  # avoid division by 0
                     error += 0.000000001
                 w[j] *= error / (1. - error)

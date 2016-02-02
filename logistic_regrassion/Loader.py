@@ -1,5 +1,4 @@
 class Loader:
-
     '''
     loads a csv file as a dataset.
     the file consists of number values, either integer of floating point, representing each feature
@@ -20,7 +19,7 @@ class Loader:
         # parallila dimiourgw kai t dianismata twn paradeigmatwn.
         dataset = []
         for line in lines:
-            attributes = line.split(sep = ',')
+            attributes = line.split(sep=',')
             data = []
             for a in attributes:
                 a.strip()
@@ -29,7 +28,7 @@ class Loader:
                     attr = float(a)
                 except ValueError:
                     try:
-                        attr = int(a) # euxomai na ka
+                        attr = int(a)  # euxomai na ka
                     except ValueError:
                         attr = a
 
@@ -37,11 +36,10 @@ class Loader:
 
             dataset.append(data)
 
-
     @staticmethod
     def get_feature_values(data):
 
-        feature = [[]]*len(data[0]) # isws to teleutaio na einai to response...apla to agnoneis
+        feature = [[]] * len(data[0])  # isws to teleutaio na einai to response...apla to agnoneis
 
         for d in data:
             for i in range(len(d)):
@@ -53,6 +51,7 @@ class Loader:
     '''
     kanei to e3is: gia ka8e feature kai gia ka8e pi8ani timi tou feature a8roizei posa paradeigmata einai se ka8e katigoria
     '''
+
     @staticmethod
     def get_values_counts(data, feature_values, categories):
         '''
@@ -63,7 +62,7 @@ class Loader:
             counter.append(dict.fromkeys(feature, dict.fromkeys(categories, 0)))
 
         for d in data:
-            for i in range(len(d) - 1): # to d[-1] einai i apokrisi
+            for i in range(len(d) - 1):  # to d[-1] einai i apokrisi
                 counter[i].get(d[i])[d[-1]] += 1
 
         return counter

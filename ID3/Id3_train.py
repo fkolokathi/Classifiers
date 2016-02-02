@@ -28,13 +28,13 @@ def train():
         line = line.strip("\r\n")
         data.append(line.split(','))
         # to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
-    attributes_names = data[0]
+    attr_names = data[0]
     # H prwth grammh tou file periexei ta onomata twn attributes.
     # ---------->Ta exw ektypwsei pairnei ta onomata twn attributes mia xara
-    data.remove(attributes_names)
+    data.remove(attr_names)
     # afairesh ths prwths grammhs pou periexei ta onomata twn attiributes mias kai den tha xreiastoun kata to training
     # Run ID3
-    tree = Id3.id3(data, attributes_names, goal)
+    tree = Id3.id3(data, attr_names, goal)
     return tree
 
 
@@ -46,8 +46,8 @@ def attributes_names():  # ------->Kai edw swsta tha ta pairnei.einai akrivws to
         line = line.strip("\r\n")
         data.append(
             line.split(','))  # to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
-    attributes_names = data[0]
-    return attributes_names
+    attr_names = data[0]
+    return attr_names
 
 
 def test():
