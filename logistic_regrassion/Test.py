@@ -26,19 +26,17 @@ def training_results():
     data_file = 'dermatology.csv'
     dtst = load_dataset(filename=data_file)
 
-    dataset = [[]]*(len(dtst)-1)
+    dataset = []
     print(dataset)
 
     the_best = best_attrs[: k_best]
     print(the_best)
 
     for j in range(1,len(dtst)):
+        dataset.append([])
         for i in range(len(dtst[0])):
             if dtst[0][i] in the_best:
                 dataset[j-1].append(dtst[j][i])
-       #print(dataset[j-1])
-
-    #print(dataset)
 
     # dataset = dataset[1:]
     # splitting the data
@@ -52,16 +50,19 @@ def training_results():
         z.append(d[-1])
 
     # computing the best k using the performance of the algorithm with each value of k
-    k = [0, 1, 3]
+    k = [0, 0.1, 0.6, 1, 7, 10 , 13]
     max_ac = 0
     best = 0
     for i in range(len(k)):
         lg.train(training_data, k[i])
         metrics = get_metrics(get_results(lg.response_all(validation_data), z))
+        print("the metric 0:" + str(metrics[0])+ " for k = "+str(k[i]))
         if metrics[0] > max_ac:
+            print(metrics[0])
             max_ac = metrics[0]
             best = i
-    print ("here")
+
+    print("best k = "+str(k[best]))
 
     lg.train(dataset=training_data, k=k[best])
 
@@ -122,6 +123,7 @@ def get_metrics(results):
     tn = results[1][0]
     fp = results[0][1]
     fn = results[1][1]
+    print(results)
 
     metrics = [0,0,0,0]
     # accuracy
@@ -143,7 +145,7 @@ def get_metrics(results):
         else:
             metrics[3] = (2 * metrics[1] * metrics[2]) / (metrics[1] + metrics[2])
     except ZeroDivisionError as z:
-        metrics = 'inf'
+        metrics[3] = 'inf'
 
     return metrics
 

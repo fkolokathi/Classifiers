@@ -12,7 +12,7 @@ class LogisticRegression:
     w ---> the weights calculated during training
     '''
     def __init__(self):
-        self.n = 0.01
+        self.n = 0.001
         self.w = [0] # pointless assignment
 
     '''
@@ -35,32 +35,34 @@ class LogisticRegression:
     trains the logistic regression on specific dataset with specific penalty constant k for the weights
     '''
     def train(self, dataset, k=0.1):
-        print("in train")
-        print(len(dataset[0]))
+        print("in train w = "+str(self.w))
         num_of_features = len(dataset[0])
         w = [1 / num_of_features] * (num_of_features)
-        l = -10
+        l = -float("Inf")
         s = 0
+        iteration = 1
 
-        while l-s < 0:
-            print("here")
+        while abs(l-s) > 0.05 or iteration <= 2:
             l = s
             self.w = w
+            print("here w = "+str(self.w))
             s = 0
             for x in dataset:
-                print("here2")
                 if x[-1] == 1:
                     s += math.log2(self.positive(self.product(self.w, x)))
                 else:
-                    s += math.log2(self.negative(self.product(self.w, x)))
+                    try:
+                        s += math.log2(self.negative(self.product(self.w, x)))
+                    except ValueError:
+                        s += -float("Inf")
 
                 w[0] += self.n * (x[-1] - self.positive(self.product(self.w, x)) - 2 * k * w[0])
-                print(num_of_features)
-                print(len(w))
                 for i in range(1, len(w)):
-                    #print("here3")
                     w[i] += self.n * (x[i-1] * (x[-1] - self.positive(self.product(self.w, x))) - 2 * k * w[i])
-        print("out train")
+            print("abs " +str(abs(l-s))+" l = "+str(l)+" s = "+str(s))
+            if s != l:
+                iteration += 1
+        print("out train "+str(iteration))
 
     '''
     classifies the data x
@@ -91,4 +93,4 @@ class LogisticRegression:
     it computes the probability that the category of x is the negative category (0)
     '''
     def negative(self, x):
-        return math.exp(-1.0 * x) / (1.0 + math.exp(-1.0 * x))
+        return 1.0 - self.positive(x)
