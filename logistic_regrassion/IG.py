@@ -50,8 +50,8 @@ def entropy(data,attributes,goal):
 # data is a list with sublists each of which contain a turple,attributes is a list,goal is the name of the target
 # attribute
 def best_attribute(data, attributes, goal):
-    if attributes == []:
-        return ''
+    #if attributes == []:
+    #    return ''
     best = attributes[0]
     max = 0
     for attr in attributes:
@@ -64,29 +64,28 @@ def best_attribute(data, attributes, goal):
 
 
 def attributes_names():
-   file = open('dermatology.csv')
-   goal = "Class"#name of goal
-   data=[]
-   for line in file:
-        line = line.strip("\r\n")
-        data.append(line.split(','))#to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
-   attributes_names = data[0]
-   return attributes_names
+    file = open('dermatology.csv', 'r')
+    lines = file.readlines()
+    line = lines[0].strip("\r\n")
+    attributes_names = line.split(',')
+    return attributes_names
 
 #This function takes all the values of a given attribute from the data.
 #data is a list with sublists each of which contain a turple,attributes is a list,attribute is given attribute
 def get_attribute_values(data,attributes,attribute):
     values=[]
-    if attribute == '':
-        return  values
+    #if attribute == '':
+    #    return  values
     pos=attributes.index(attribute)
     for turple in data:
         if turple[pos] not in values:
             values.append(turple[pos])
     return values
 
-#This function returns a list which contains sublists each of which contains the turple in which best=value.Each sublist also does not contain the best attribute
-#data is a list with sublists each of which contains a turple,attributes is a list,best is the given attribute with max information gain,value is a value of best attribute
+#This function returns a list which contains sublists each of which contains the turple in which best=value
+# .Each sublist also does not contain the best attribute
+#data is a list with sublists each of which contains a turple,attributes is a list,best is the given
+# attribute with max information gain,value is a value of best attribute
 def get_node_examples(data,attributes,best,value):
   list=[]
   pos= attributes.index(best)
@@ -100,6 +99,15 @@ def get_node_examples(data,attributes,best,value):
            list.append(newlist)
   return list
 
+def df2(attributes, goal, data):
+    names = attributes_names()
+    info_gains = {}
+    for name in names:
+        if name == goal:
+            continue
+        info_gains[name] = information_gain(data, names, goal, name)
+
+    return sorted(info_gains, key=info_gains.get, reverse=True)
 
 def df(attributes,goal,data,list):
     best=best_attribute(data,attributes,goal)
@@ -122,6 +130,5 @@ def ff():
         data.append(line.split(','))#to data periexei upolistes opou h kathemia periexei ta values kathe grammhs tou file
     attr_names = data[0]#H prwth grammh tou file periexei ta onomata twn attributes.
     data.remove(attr_names)#afairesh ths prwths grammhs pou periexei ta onomata twn attiributes mias kai den tha xreiastoun kata to training
-    list=[]
-    li=df(attributes,goal,data,list)
+    li=df2(attributes,goal,data)
     return li

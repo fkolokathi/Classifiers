@@ -27,7 +27,7 @@ def training_results():
     dtst = load_dataset(filename=data_file)
 
     dataset = [[]]*(len(dtst)-1)
-    print(dtst)
+    print(dataset)
 
     the_best = best_attrs[: k_best]
     print(the_best)
@@ -36,6 +36,7 @@ def training_results():
         for i in range(len(dtst[0])):
             if dtst[0][i] in the_best:
                 dataset[j-1].append(dtst[j][i])
+       #print(dataset[j-1])
 
     #print(dataset)
 

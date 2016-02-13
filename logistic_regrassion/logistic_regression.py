@@ -35,26 +35,32 @@ class LogisticRegression:
     trains the logistic regression on specific dataset with specific penalty constant k for the weights
     '''
     def train(self, dataset, k=0.1):
+        print("in train")
+        print(len(dataset[0]))
         num_of_features = len(dataset[0])
         w = [1 / num_of_features] * (num_of_features)
-        l = 100
+        l = -10
         s = 0
 
-        while abs(l - s) > 0.05:
+        while l-s < 0:
+            print("here")
             l = s
             self.w = w
             s = 0
             for x in dataset:
-
+                print("here2")
                 if x[-1] == 1:
                     s += math.log2(self.positive(self.product(self.w, x)))
                 else:
                     s += math.log2(self.negative(self.product(self.w, x)))
 
                 w[0] += self.n * (x[-1] - self.positive(self.product(self.w, x)) - 2 * k * w[0])
+                print(num_of_features)
+                print(len(w))
                 for i in range(1, len(w)):
+                    #print("here3")
                     w[i] += self.n * (x[i-1] * (x[-1] - self.positive(self.product(self.w, x))) - 2 * k * w[i])
-
+        print("out train")
 
     '''
     classifies the data x
